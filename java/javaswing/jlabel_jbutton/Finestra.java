@@ -1,4 +1,4 @@
-package javaswing;
+package jlabel_jbutton;
 
 public class Finestra {
     public static void main(String[] args) {
