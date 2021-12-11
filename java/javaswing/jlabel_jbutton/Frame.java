@@ -18,7 +18,7 @@ public class Frame extends JFrame implements ActionListener{
         
         button.setBounds(50, 150, 95, 30);
         textField.setBounds(50, 50, 200, 20);
-        l.setBounds(50, 100, 250, 20);
+        l.setBounds(50, 100, 300, 20);
 
         button.addActionListener(this);
 
