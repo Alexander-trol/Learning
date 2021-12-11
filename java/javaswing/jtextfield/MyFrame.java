@@ -3,31 +3,31 @@ package Learning.java.javaswing.jtextfield;
 import javax.swing.*;
 import java.awt.event.*;
 
-public class Frame extends JFrame implements ActionListener{
+public class MyFrame extends JFrame implements ActionListener{
 
     private JTextField t1, t2, t3;
     private JButton b1, b2;
 
-    public Frame(){
+    public MyFrame(){
 
         super("Textfield example");
 
         t1 = new JTextField();
-        t1.setBounds(50, 50, 90, 20);
+        t1.setBounds(50, 50, 150, 20);
         t2 = new JTextField();
-        t2.setBounds(100, 50, 90, 20);
+        t2.setBounds(50, 100, 150, 20);
         t3 = new JTextField();
-        t3.setBounds(150, 50, 90, 20);
+        t3.setBounds(50, 150, 150, 20);
 
         b1 = new JButton("+");
-        b1.setBounds(200, 50, 50, 50);
+        b1.setBounds(50, 200, 50, 50);
         b2 = new JButton("-");
-        b2.setBounds(200, 100, 50, 50);
+        b2.setBounds(120, 200, 50, 50);
 
         b1.addActionListener(this);
         b2.addActionListener(this);
 
-        add(t1); add(t1); add(t3);
+        add(t1); add(t2); add(t3);
         add(b1); add(b2);
 
         setResizable(false);
