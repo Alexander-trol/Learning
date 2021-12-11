@@ -1,16 +1,12 @@
-package serverclient;
+package Learning.java.javaserver.serverclient;
 
 import java.io.*;
 import java.net.*;
 
 public class Server{
-    public static void main(String[] args) {
-        if (args.length != 1) {
-            System.err.println("Usage: java KnockKnockServer <port number>");
-            System.exit(1);
-        }
-        
-        int portNumber = Integer.parseInt(args[0]);
+    public static void main(String[] args){
+
+        int portNumber = 9000;
 
         try ( 
             ServerSocket serverSocket = new ServerSocket(portNumber);
@@ -22,7 +18,7 @@ public class Server{
             String inputLine, outputLine;
             
             // Initiate conversation with client
-            KnockKnockProtocol kkp = new KnockKnockProtocol();
+            Server kkp = new Server();
             outputLine = kkp.processInput(null);
             out.println(outputLine);
 
@@ -37,5 +33,9 @@ public class Server{
                 + portNumber + " or listening for a connection");
             System.out.println(e.getMessage());
         }
+    }
+
+    private String processInput(Object object) {
+        return null;
     }
 }

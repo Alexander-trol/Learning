@@ -1,4 +1,4 @@
-package jlabel_jbutton;
+package Learning.java.javaswing.jlabel_jbutton;
 
 import javax.swing.*;
 import java.awt.event.*;
