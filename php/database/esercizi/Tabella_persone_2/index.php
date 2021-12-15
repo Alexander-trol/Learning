@@ -3,7 +3,7 @@
     require("components/function.php");
 
     echo("<ul class=\"nav\">
-        <li class=\"nav-item\"><a class=\"nav-link active\" aria-current=\"page\" href=\"index.php\">Visualizza lista persone</a></li>
+        <li class=\"nav-item\"><a class=\"nav-link\" aria-current=\"page\" href=\"index.php\">Visualizza lista persone</a></li>
         <li class=\"nav-item\"><a class=\"nav-link\" href=\"index.php?scelta=formPersona\">Aggiungi persone</a></li>
     </ul>");
 
@@ -25,32 +25,76 @@
             </form>");
             break;
         //
-        case 'addPersona':
+        case 'addPersona':{
             $nome = $_REQUEST['nomeP'];
             $cognome = $_REQUEST['cognomeP'];
 
             $db = new mysqli(MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DB);
-            $sql = "INSERT INTO persone(nome, cognome) VALUES('nome','cognome')";
+            $sql = "INSERT INTO persone(nome, cognome) VALUES('$nome','$cognome')";
 
             if ($db->query($sql)) {echo("Inserimento avvenuto!!!");}
             else {echo("Errore nell'inserimento... :/");}
 
             $db->close();
             break;
-        case 'deletePersona':
+        }
+        case 'deletePersona':{
             $idp = $_REQUEST['id_persona'];
             echo("Voglio cancellare questo record con id: $idp");
 
             $db = new mysqli(MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DB);
 
             $sql = "DELETE FROM persone WHERE id=$idp";
-            echo("<br> $idp");
+            echo("<br /> $idp");
 
             if ($db->query($sql)) {echo("Cancellazione effettuata!!!");}
             else {echo("Problema durante la cancellazione... :/");}
 
             $db->close();
             break;
+        }
+        case 'formModifica':{
+            $idp = $_REQUEST['id_persona'];
+
+            $db = new mysqli(MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DB);
+
+            $sql = "SELECT * FROM persone WHERE id=$idp";
+            $result = $db->query($sql);
+            $record = $result->fetch_assoc();
+
+            echo("<form action=\"index.php\" method=\"post\">
+            <label for=\"campo_1\" class=\"form-label\">Nome:</label>
+            <input class=\"form-control\" type=\"text\" id=\"campo_1\" name=\"nomeP\" value=\"".$record['nome']."\" aria-label=\"default input example\">
+            <label for=\"campo_2\" class=\"form-label\">Cognome:</label>
+            <input class=\"form-control\" type=\"text\" id=\"campo_2\" name=\"cognomeP\" value=\"".$record['cognome']."\" aria-label=\"default input example\">
+            
+            <input type=\"hidden\" name=\"scelta\" value=\"updatePersona\">
+            <input type=\"hidden\" name=\"id_persona\" value=\"$idp\">
+            <br />
+            <button type=\"submit\" class=\"btn btn-primary\">Aggiorna dati Persona</button>
+            </form>");
+
+            $db->close();
+            break;
+        }
+        case 'updatePersona':{
+            $idp = $_REQUEST['id_persona'];
+            $nome = $_REQUEST['nomeP'];
+            $cognome = $_REQUEST['cognomeP'];
+
+            $db = new mysqli(MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DB);
+
+            $sql = "UPDATE persone SET nome='$nome', cognome='$cognome' WHERE id=$idp";
+
+            echo($sql);
+            echo("<br><br>");
+
+            if ($db->query($sql)) {echo("Persona aggiornata!!!");}
+            else {echo("Problema in fase di update");}
+
+            $db->close();
+            break;
+        }
         default:
             //Apertura database
             $db = new mysqli(MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DB);
@@ -90,7 +134,5 @@
             $db->close();
             break;
     }
-
-
     require("components/foot.html");
 ?>
