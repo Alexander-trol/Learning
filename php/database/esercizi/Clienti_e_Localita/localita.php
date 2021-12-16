@@ -1,6 +1,6 @@
 <?php
-require("components/funzioni.php");
 require("components/head.html");
+require("components/function.php");
 ?>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
@@ -63,13 +63,13 @@ switch ($sc) {
             $record = $rs->fetch_assoc();
             while($record){
                 echo ("<tr>
-                    <th scope=\"row\">".$record['Id']."</th>
+                    <th scope=\"row\">".$record['id']."</th>
                     <td>".$record['cap']."</td>
                     <td>".$record['nome']."</td>
                     <td>".$record['prov']."</td>
                     <!--<td>
-                        <a href=\"personeTable.php?scelta=deleteRecord&id_persona=" . $record['Id'] . "\">Delete</a> | 
-                        <a href=\"personeTable.php?scelta=formModifica&id_persona=" . $record['Id'] . "\">Modifica</a>
+                        <a href=\"index.php?scelta=deleteRecord&id_persona=" . $record['id'] . "\">Delete</a> | 
+                        <a href=\"index.php?scelta=formModifica&id_persona=" . $record['id'] . "\">Modifica</a>
                     </td>-->
                 </tr>");
                $record = $rs->fetch_assoc();

@@ -1,12 +1,12 @@
 <?php
-require("components/funzioni.php");
 require("components/head.html");
+require("components/function.php");
 ?>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <!-- blocco delle scelte per Loclità -->
+                <!-- blocco delle scelte per Località -->
                 <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Località
@@ -27,8 +27,8 @@ require("components/head.html");
                     Cliente
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="cliente.php?scelta=listaCliente">Lista Clienti</a></li>
-                    <li><a class="dropdown-item" href="cliente.php?scelta=formCliente">Nuovo Cliente</a></li>
+                    <li><a class="dropdown-item" href="clienti.php?scelta=listaCliente">Lista Clienti</a></li>
+                    <li><a class="dropdown-item" href="clienti.php?scelta=formCliente">Nuovo Cliente</a></li>
                     <!--<li>
                         <hr class="dropdown-divider">
                     </li>
@@ -81,8 +81,8 @@ switch ($sc) {
                     <td>".$record['nome']."</td>
                     
                     <!--<td>
-                        <a href=\"personeTable.php?scelta=deleteRecord&id_persona=" . $record['id'] . "\">Delete</a> | 
-                        <a href=\"personeTable.php?scelta=formModifica&id_persona=" . $record['id'] . "\">Modifica</a>
+                        <a href=\"index.php?scelta=deleteRecord&id_persona=" . $record['id'] . "\">Delete</a> | 
+                        <a href=\"index.php?scelta=formModifica&id_persona=" . $record['id'] . "\">Modifica</a>
                     </td>-->
                 </tr>");
                 $record = $rs->fetch_assoc();
@@ -99,7 +99,7 @@ switch ($sc) {
         }
     case "formCliente":{
         ?>
-            <form action="cliente.php" method="get">
+            <form action="clienti.php" method="get">
                 <div class="mb-3">
                 <label for="txt1" class="form-label">Cognome Nome</label>
                 <input class="form-control" type="text" placeholder="Default input" id="txt1" name="ragioneSociale" aria-label="default input example">
@@ -135,7 +135,7 @@ switch ($sc) {
                     }
                 echo("\t</select>\n\n");
                 ?>
-                <input type="hidden" name="scelta" value="addCliente">
+                <input type="hidden" name="scelta" value="addCliente"><br>
                 <button type="submit" class="btn btn-primary">Inserisci Cliente</button>
             </form>
         <?php
