@@ -1,41 +1,95 @@
-package Learning.java.javaserver.serverclient;
-
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.*;
+import java.util.HashMap;
 
-public class Server{
-    public static void main(String[] args){
-
-        int portNumber = 9000;
-
-        try ( 
-            ServerSocket serverSocket = new ServerSocket(portNumber);
-            Socket clientSocket = serverSocket.accept();
-            PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-        ) {
-        
-            String inputLine, outputLine;
-            
-            // Initiate conversation with client
-            Server kkp = new Server();
-            outputLine = kkp.processInput(null);
-            out.println(outputLine);
-
-            while ((inputLine = in.readLine()) != null) {
-                outputLine = kkp.processInput(inputLine);
-                out.println(outputLine);
-                if (outputLine.equals("Bye."))
-                    break;
-            }
-        } catch (IOException e) {
-            System.out.println("Exception caught when trying to listen on port "
-                + portNumber + " or listening for a connection");
-            System.out.println(e.getMessage());
+public class Server 
+{
+  public static void main(String[] args)
+  {
+    int portNumber = ParseArgs(args);
+    
+    try
+    {
+      ServerSocket server = new ServerSocket(portNumber);
+  
+      while(true)
+      {
+        Socket endpoint = server.accept();
+  
+        BufferedReader reader = new BufferedReader(
+          new InputStreamReader(endpoint.getInputStream()));
+  
+        String tmp;
+        String request = "";
+        while((tmp = reader.readLine()).length() > 0)
+        {
+          request+=tmp+"\n";
         }
-    }
 
-    private String processInput(Object object) {
-        return null;
+        String firstLine = request.split("\n")[0];
+        System.out.println(firstLine);
+        
+        //modifica per domanda Ganzarolli
+        HashMap<String,String> query = ParseQuery(request);
+  
+        PrintWriter writer = new PrintWriter(endpoint.getOutputStream());
+  
+        String response = "Ciao {nome}";
+
+        response = response
+          .replace("{nome}", query.get("nome") == null ? "mondo" : query.get("nome"));
+  
+        writer.println("HTTP/1.1 200 OK");
+        writer.println("Content-Type: text/html");
+        writer.println("Content-Length: "+response.length());
+        writer.println();
+        writer.println(response);
+  
+        writer.flush();
+  
+        endpoint.close();
+      }
     }
+    catch(IOException e)
+    {
+      System.err.println(e.getMessage());
+    }
+  }
+
+  public static HashMap<String, String> ParseQuery(String request)
+  {
+    String firstLine = request.split("\n")[0];
+    
+    HashMap<String, String> result = new HashMap<String, String>();
+    if(firstLine.contains("?"))
+    {
+      for (String keyValue : firstLine.split(" ")[1].split("\\?")[1].split("&"))
+      {
+        String[] kv = keyValue.split("=");
+        result.put(kv[0], kv[1]);
+      }
+    }
+    
+    return result;
+  }
+
+  public static int ParseArgs(String[] args)
+  {
+    try{
+      return Integer.parseInt(args[0]);  
+    }
+    catch(ArrayIndexOutOfBoundsException e)
+    {
+      System.err.println(e.getMessage());
+      return 9000;
+    }
+    catch(NumberFormatException e)
+    {
+      System.err.println(e.getMessage());
+      return 9000;
+    }
+  }
 }
