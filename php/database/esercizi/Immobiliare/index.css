@@ -1,0 +1,17 @@
+body{
+    background-color: salmon;
+}
+
+.container{
+    background-color: white;
+}
+
+.form-floating mb-3{
+    width: 21;
+}
+
+.btn{
+    position: relative;
+    border-color:darkgrey;
+    position: center;
+}
