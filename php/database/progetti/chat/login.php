@@ -1,25 +1,34 @@
 <?php
-    include 'components/function.php';
+    include('components/function.php');
 
     session_start();
 
     $message = '';
 
+    if(isset($_SESSION['id_user'])) header('location:index.php');
+
     if(isset($_POST['login'])){
         $sql = "SELECT * FROM login
-                WHERE username = 'username'";
-        $result = $db->query($sql);
+                WHERE username = :username";
+        $result = $conn->prepare($sql);
         $result->execute(
             array(
-                'username' => $_POST["username"]
+                ':username' => $_POST["username"]
             )
         );
-        $cnt = $result->rowCount();
-        if ($cnt > 0){
+        $count = $result->rowCount();
+        if ($count > 0){
             $rs = $result->fetchAll();
             foreach ($rs as $row) {
-                if(password_verify($_POST['password'], $row['password'])){
+                if($_POST["password"] == $row["password"]){
                     $_SESSION['id_user'] = $row['id_user'];
+                    $_SESSION['username'] = $row['username'];
+                    $sub_sql = "INSERT INTO dettagli_login(id_user) 
+                                VALUES('".$row['id_user']."')";
+                    $result = $conn->prepare($sub_sql);
+                    $result->execute();
+                    $_SESSION['id_dettagli'] = $conn->lastInsertId();
+                    header('location:index.php');
                 }else $message = '<label>Password errata</label>'; 
             }
         }
@@ -38,12 +47,12 @@
     <body>
         <div class="container">
             <br/>
-
-            <h3>CipChat</a></h3>
+            <h3 style="text-align: center;">CipChat</a></h3>
             <br/>
             <div class="panel panel-default">
                 <div class="panel-heading">CipLogin</div>
                 <div class="panel-body">
+                    <p class="text-danger"><?php echo $message;?></p>
                     <form action="" method="POST">
                         <div class="form-group">
                             <label for="Username">Inserisci l'Username</label>
@@ -54,7 +63,7 @@
                             <input type="password" name="password" class="form-control" placeholder="Password" required>
                         </div>
                         <div class="form-group">
-                            <input type="subit" name="login" class="btn btn-info" value="Login" />
+                            <input type="submit" name="login" class="btn btn-info" value="Login" />
                         </div>
                     </form>
                 </div>
