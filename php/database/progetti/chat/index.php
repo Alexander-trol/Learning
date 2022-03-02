@@ -30,6 +30,10 @@
                 <script>
                     $(document).ready(function(){
                         fetch_user();
+                        setInterval(function(){
+                            aggiorna_ultima_attivita();
+                            fetch_user();
+                        }, 5000)
                         
                         function fetch_user() {
                             $.ajax({
@@ -37,6 +41,14 @@
                                 method:"POST",
                                 success:function(data) {
                                     $('#user_details').html(data);
+                                }
+                            })
+                        }
+                        function aggiorna_ultima_attivita() {
+                            $.ajax({
+                                url:"aggiorna_ultima_attivita.php",
+                                success:function(){
+
                                 }
                             })
                         }
