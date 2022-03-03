@@ -20,13 +20,13 @@
 
     foreach ($rs as $row) {
         $stato = '';
-        $accesso_corrente = strtotime(date('d-m-Y H:i:s'). '-10 seconds');
-        $accesso_corrente = date('d-m-Y H:i:s', $accesso_corrente);
+        $accesso_corrente = strtotime(date('Y-m-d H:i:s') . '-10 second');   
+        $accesso_corrente = date('Y-m-d H:i:s', $accesso_corrente);
         $ultima_attivita_utente = fetch_user_ultima_attivita($row['id_user'], $conn);
 
         if ($ultima_attivita_utente > $accesso_corrente) {
             $stato = '<span class="label label-success">Online</span>';
-        }else{
+        }else{                                                          //Non vanno i colori e nemmeno il cambio e nemmno il cambio
             $stato = '<span class="label label-danger">Offline</span>';
         }
         
@@ -34,7 +34,7 @@
             <tr>
                 <td>'.$row['username'].'</td>
                 <td>'.$stato.'</td>
-                <td><button type="button" class="btn btn-info btn-xs start-chat" 
+                <td><button id="start_chat "type="button" class="btn btn-info btn-xs start_chat" 
                         data-toiduser="'.$row['id_user'].'" 
                         data-tousername="'.$row['username'].'">Entra
                     </button>

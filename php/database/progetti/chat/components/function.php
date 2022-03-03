@@ -1,14 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    
+</body>
+</html>
+
 <?php
     //Rilevamento errore, se non si capisce l'errore togliere funzione
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
-    /* $host = "localhost";
-    $user = "root";
-    $pwd = "";
-    $db = "immobiliare";
-    $conn = mysqli_connect($host, $user, $pwd, $db); */
     
     $conn = new PDO("mysql:host=localhost; dbname=chat", "root", "");
+
+    if (!$conn) {
+        die("<script>alert('Connessione fallita!')</script>"); 
+    }
+
+    date_default_timezone_set('Europe/Rome');
 
     function fetch_user_ultima_attivita($id_user, $conn){
         $sql = "SELECT * FROM dettagli_login 
@@ -19,11 +30,8 @@
         $result->execute();
         $rs = $result->fetchAll();
 
-        foreach ($result as $row) return $row['ultima_attivita'];
-        
-    }
-
-    if (!$conn) {
-        die("<script>alert('Connessione fallita!')</script>"); 
+        foreach ($result as $row) {
+            return $row['ultima_attivita'];
+        }
     }
 ?>

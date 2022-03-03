@@ -26,35 +26,9 @@
                 <a href="logout.php">Esci</a>
                 </p>
                 <div id="user_details"></div>
+                <div id="user_model_details"></div>
 
-                <script>
-                    $(document).ready(function(){
-                        fetch_user();
-                        setInterval(function(){
-                            aggiorna_ultima_attivita();
-                            fetch_user();
-                        }, 5000)
-                        
-                        function fetch_user() {
-                            $.ajax({
-                                url:"fetch_user.php",
-                                method:"POST",
-                                success:function(data) {
-                                    $('#user_details').html(data);
-                                }
-                            })
-                        }
-                        function aggiorna_ultima_attivita() {
-                            $.ajax({
-                                url:"aggiorna_ultima_attivita.php",
-                                success:function(){
-
-                                }
-                            })
-                        }
-                    });
-                </script>
-
+                <script src="index.js"></script>
             </div>
         </div>
     </body>
