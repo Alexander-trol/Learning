@@ -35,8 +35,8 @@
                 <td>'.$row['username'].'</td>
                 <td>'.$stato.'</td>
                 <td><button id="start_chat "type="button" class="btn btn-info btn-xs start_chat" 
-                        data-toiduser="'.$row['id_user'].'" 
-                        data-tousername="'.$row['username'].'">Entra
+                        data-iduserr="'.$row['id_user'].'" 
+                        data-idusernamer="'.$row['username'].'">Entra
                     </button>
                 </td>
             </tr>

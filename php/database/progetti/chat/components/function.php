@@ -1,13 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <link rel="stylesheet" href="index.css">
-</head>
-<body>
-    
-</body>
-</html>
-
 <?php
     //Rilevamento errore, se non si capisce l'errore togliere funzione
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
@@ -32,6 +22,49 @@
 
         foreach ($result as $row) {
             return $row['ultima_attivita'];
+        }
+    }
+
+    function fetch_user_cronologia_chat($id_user_m, $id_user_r, $conn){
+        $sql = "SELECT * FROM chat_messaggi
+                WHERE (id_user_m ='".$id_user_m."'
+                AND id_user_r = '".$id_user_r."')
+                OR (id_user_m ='".$id_user_r."'
+                AND id_user_r = '".$id_user_m."')
+                ORDER BY timestamp DESC
+                ";
+        $result = $conn->prepare($sql);
+        $result->execute();
+        $rs = $result->fetchAll();
+        $output = '<ul class="list-unstyled">';
+        foreach ($rs as $row) {
+            $username= '';
+            if ($row["id_user_m"] == $id_user_m) {
+                $username = '<b class="text-success">Tu</b>';
+            }
+            else {
+                $username = '<b class="text-danger">'.get_username($row[
+                    'id_user_m'], $conn).'</b>';
+            }
+            $output .= '<li style="border-bottom:1px dotted #ccc">
+                            <p>'.$username.' - '.$row["messaggi"].'</p>
+                            <div style="text-align: right;">
+                                - <small><em>'.$row['orario'].'</em></small>
+                            </div>
+                        </li>
+                        ';
+        }
+        $output .= '</ul>';
+        return $output;
+    }
+
+    function get_username($id_user, $conn){
+        $sql = "SELECT username FROM login WHERE id_user = '$id_user'";
+        $result = $conn->prepare();
+        $result->execute();
+        $rs = $result->fetchAll();
+        foreach ($rs as $row) {
+            return $row['username'];
         }
     }
 ?>
