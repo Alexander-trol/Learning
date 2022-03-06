@@ -1,14 +1,9 @@
 <?php
-    //Rilevamento errore, se non si capisce l'errore togliere funzione
-    mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-
-    
-    $conn = new PDO("mysql:host=localhost; dbname=chat", "root", "");
-
-    if (!$conn) {
-        die("<script>alert('Connessione fallita!')</script>"); 
-    }
-
+    $host = "localhost";
+    $db = "chat";
+    $user = "root";
+    $pwd = "";
+    $conn = new PDO("mysql:host=$host; dbname=$db", $user, $pwd);
     date_default_timezone_set('Europe/Rome');
 
     function fetch_user_ultima_attivita($id_user, $conn){
@@ -20,23 +15,24 @@
         $result->execute();
         $rs = $result->fetchAll();
 
-        foreach ($result as $row) {
+        foreach ($rs as $row) {
             return $row['ultima_attivita'];
         }
     }
-
+    
     function fetch_user_cronologia_chat($id_user_m, $id_user_r, $conn){
-        $sql = "SELECT * FROM chat_messaggi
-                WHERE (id_user_m ='".$id_user_m."'
-                AND id_user_r = '".$id_user_r."')
-                OR (id_user_m ='".$id_user_r."'
-                AND id_user_r = '".$id_user_m."')
-                ORDER BY timestamp DESC
-                ";
+        $sql = "SELECT * FROM chat_messaggi 
+                WHERE (id_user_m = '$id_user_m' 
+                AND id_user_r = '$id_user_r') 
+                OR (id_user_m = '$id_user_r' 
+                AND id_user_r = '$id_user_m') 
+                ORDER BY orario ASC";
+                echo ("bau");
         $result = $conn->prepare($sql);
         $result->execute();
         $rs = $result->fetchAll();
         $output = '<ul class="list-unstyled">';
+
         foreach ($rs as $row) {
             $username= '';
             if ($row["id_user_m"] == $id_user_m) {
@@ -57,10 +53,10 @@
         $output .= '</ul>';
         return $output;
     }
-
+    
     function get_username($id_user, $conn){
         $sql = "SELECT username FROM login WHERE id_user = '$id_user'";
-        $result = $conn->prepare();
+        $result = $conn->prepare($sql);
         $result->execute();
         $rs = $result->fetchAll();
         foreach ($rs as $row) {

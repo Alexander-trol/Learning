@@ -2,7 +2,6 @@
     include('components/function.php');
 
     session_start();
-
     $sql = "SELECT * FROM login
             WHERE id_user != '".$_SESSION['id_user']."'";
     $result = $conn->prepare($sql);

@@ -16,11 +16,11 @@
                 ':username' => $_POST["username"]
             )
         );
-        $count = $result->rowCount();
-        if ($count > 0){
+        
+        if ($result->rowCount() > 0){
             $rs = $result->fetchAll();
             foreach ($rs as $row) {
-                if($_POST["password"] == $row["password"]){
+                if(password_verify($_POST["password"], $row["password"])){
                     $_SESSION['id_user'] = $row['id_user'];
                     $_SESSION['username'] = $row['username'];
                     $sub_sql = "INSERT INTO dettagli_login(id_user) 
@@ -64,6 +64,9 @@
                         </div>
                         <div class="form-group">
                             <input type="submit" name="login" class="btn btn-info" value="Login" />
+                        </div>
+                        <div style="text-align: center;">
+                            <a href="register.php">Registrati</a>
                         </div>
                     </form>
                 </div>

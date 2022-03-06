@@ -5,7 +5,8 @@ $(document).ready(function(){
     setInterval(function () {
         aggiorna_ultima_attivita();
         fetch_user();
-    }, 5000);
+        aggiorna_chat()
+    }, 1000);
     
     function fetch_user() {
         $.ajax({
@@ -27,6 +28,7 @@ $(document).ready(function(){
     function chatBox(id_user_r, id_username_r){
         var modal_content = '<div id="user_dialog_'+id_user_r+'" class="user_dialog" title="Stai messaggiando con '+id_username_r+'">';
         modal_content += '<div style="height:400px; border:1px solid #ccc; overflow-y: scroll; margin-bottom:24px; padding:16px;" class="cronologia_chat" data-iduserr="'+id_user_r+'" id="cronologia_chat'+id_user_r+'">';
+        modal_content += fetch_user_cronologia_chat(id_user_r);
         modal_content += '</div>';
         modal_content += '<div class="form-group">';
         modal_content += '<textarea name="chat_messaggi_'+id_user_r+'" id="chat_messaggi_'+id_user_r+'" class="form-control"></textarea>';
@@ -61,4 +63,21 @@ $(document).ready(function(){
             }
         })
     });
+
+    function fetch_user_cronologia_chat(id_user_r) {
+        $.ajax({
+            url:"cronologia_chat.php",
+            method:"POST",
+            data:{id_user_r:id_user_r},
+            success:function(data) {
+                $('#cronologia_chat'+id_user_r).html(data);
+            }
+        })
+    }
+    function aggiorna_chat() {
+        $('.cronologia_chat').each(function() {
+           var id_user_r = $(this).data('iduserr'); 
+           fetch_user_cronologia_chat(id_user_r);
+        });
+    }
 });

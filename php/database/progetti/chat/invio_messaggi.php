@@ -1,8 +1,9 @@
 <?php
     include('components/function.php');
+    
 
     session_start();
-
+    
     $data = array(
         ':id_user_r'    =>  $_POST['id_user_r'],
         ':id_user_m'    =>  $_SESSION['id_user'],
@@ -15,8 +16,8 @@
     $result= $conn->prepare($sql);
 
     if($result->execute($data)){
-        echo("hi");
-            echo fetch_user_cronologia_chat($_SESSION['id_user'],
-            $_POST['id_user_r'], $conn);
+        echo fetch_user_cronologia_chat($_SESSION['id_user'],
+        $_POST['id_user_r'], $conn);
     }
+    
 ?>
