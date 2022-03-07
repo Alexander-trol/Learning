@@ -27,7 +27,6 @@
                 OR (id_user_m = '$id_user_r' 
                 AND id_user_r = '$id_user_m') 
                 ORDER BY orario ASC";
-                echo ("bau");
         $result = $conn->prepare($sql);
         $result->execute();
         $rs = $result->fetchAll();
@@ -36,10 +35,10 @@
         foreach ($rs as $row) {
             $username= '';
             if ($row["id_user_m"] == $id_user_m) {
-                $username = '<b class="text-success">Tu</b>';
+                $username = '<b class="success">Tu</b>';
             }
             else {
-                $username = '<b class="text-danger">'.get_username($row[
+                $username = '<b class="danger">'.get_username($row[
                     'id_user_m'], $conn).'</b>';
             }
             $output .= '<li style="border-bottom:1px dotted #ccc">

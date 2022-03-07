@@ -33,7 +33,7 @@ $(document).ready(function(){
         modal_content += '<div class="form-group">';
         modal_content += '<textarea name="chat_messaggi_'+id_user_r+'" id="chat_messaggi_'+id_user_r+'" class="form-control"></textarea>';
         modal_content += '</div><div class="form-group" align="right">';
-        modal_content += '<button type="button" name="send_chat" id="'+id_user_r+'" class="btn btn-info send_chat">Invia</button></div></div>';
+        modal_content += '<button type="button" name="send_chat" id="'+id_user_r+'" class="button send_chat">Invia</button></div></div>';
         $('#user_model_details').html(modal_content);
     }
     $(document).on('click', '.start_chat', function (){

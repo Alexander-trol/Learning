@@ -55,41 +55,27 @@ if (isset($_POST["registrati"])) {
     <head>
         <title>CipChat</title>
         <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <link rel="stylesheet" href="index.css"> 
         <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
         <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js" integrity="sha256-xH4q8N0pEzrZMaRmd7gQVcTZiFei+HfRTBPJ1OGXC0k=" crossorigin="anonymous"></script>
     </head>
     <body>
         <div class="container">
-            <br/>
-            <h3 style="text-align: center;">CipChat</a></h3>
-            <br/>
-            <div class="panel panel-default">
-                <div class="panel-heading">CipRegister</div>
-                <span class="text-danger"><?php echo $messaggio; ?></span>
-                <div class="panel-body">
-                    <form action="" method="POST">
-                        <div class="form-group">
-                            <label>Username</label>
-                            <input type="text" name="username" class="form-control" />
-                        </div>
-                        <div class="form-group">
-                            <label>Password</label>
-                            <input type="password" name="password" class="form-control" />
-                        </div>
-                        <div class="form-group">
-                            <label>Password di conferma</label>
-                            <input type="password" name="confirm_password" class="form-control" />
-                        </div>
-                        <div class="form-group">
-                            <input type="submit" name="registrati" class="btn btn-info" value="Registrati" />
-                        </div>
-                        <div style="text-align: center;">
-                            <a href="login.php">Login</a>
-                        </div>
-                    </form>
-                </div>
+            <span class="danger"><?php echo $messaggio; ?></span>
+            <form action="" method="POST">
+            <div class="title">CipRegister</div>
+            <label>Username</label>
+            <input type="text" name="username" class="form-control" placeholder="Username"/>
+            <label>Password</label>
+            <input type="password" name="password" class="form-control" placeholder="Password"/>
+            <label>Password di conferma</label>
+            <input type="password" name="confirm_password" class="form-control" placeholder="Password"/>
+            <input type="submit" name="registrati" class="button" value="Registrati" />
+            <div style="text-align: center;">
+                <br>
+                <p>Hai già un account? </p><a href="login.php">Login</a>
             </div>
+            </form>
         </div>
     </body>
 </html>
