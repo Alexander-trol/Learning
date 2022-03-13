@@ -6,15 +6,15 @@ query:
 
 query 1:
 SELECT prop.*
-FROM proprietari AS prop, immobili AS imm, intestazioni AS inte
+FROM IMMOBILIAREproprietari AS prop, IMMOBILIAREimmobili AS imm, IMMOBILIAREintestazioni AS inte
 WHERE imm.Id = inte.IdImmob AND prop.CF = inte.IdProp AND imm.nome = 'Auser';
 
 query 2:
 SELECT inte.*
-FROM intestazioni AS inte, immobili AS imm
+FROM IMMOBILIAREintestazioni AS inte, IMMOBILIAREimmobili AS imm
 WHERE imm.via = "Via Auser" AND imm.Id = inte.IdImmob
 
 query 3:
 SELECT imm.*
-FROM immobili AS imm, tipoImm as tipo
+FROM IMMOBILIAREimmobili AS imm, IMMOBILIAREtipoImm as tipo
 WHERE tipo.tipo = "Negozi" AND tipo.Id = imm.IdTipo

@@ -49,12 +49,3 @@ CREATE TABLE tipoImm(
 
     primary key(Id)
 )
-
-CREATE TABLE login (
-    id int(11) NOT NULL AUTO_INCREMENT,
-    username varchar(255) NOT NULL,
-    password varchar(255) NOT NULL,
-    
-    PRIMARY KEY(id),
-    foreign key(IdCF) references proprietari(CF)
-);

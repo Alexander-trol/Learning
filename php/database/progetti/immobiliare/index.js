@@ -1,17 +1,23 @@
-$(document).ready(function(){
+$(document).ready(function() {
 
-    fetch_user();
-    
-    setInterval(function () {
-        fetch_user();
-    }, 1000);
-    
-    function fetch_user() {
+    immobiliare_proprietari();
+    immobiliare_zone_tipologie();
+
+    function immobiliare_proprietari(){
         $.ajax({
-            url:"tabella.php",
+            url:"immobiliare_proprietari.php",
             method:"POST",
-            success:function(data) {
-                $('#user_details').html(data);
+            success:function(data){
+                $('#imm_prop').html(data);
+            }
+        })
+    }
+    function immobiliare_zone_tipologie(){
+        $.ajax({
+            url:"immobiliare_zone_tipologie.php",
+            method:"POST",
+            success:function(data){
+                $('#tabella').html(data);
             }
         })
     }

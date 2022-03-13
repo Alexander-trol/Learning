@@ -1,8 +1,8 @@
 <?php
-    include('components/function.php');
+    include('config/function.php');
 
     session_start();
     session_destroy();
 
-    header('location:login.php');
+    header('location:index.php?scelta=login');
 ?>
