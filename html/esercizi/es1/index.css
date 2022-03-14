@@ -1,0 +1,18 @@
+body
+{
+    background-color: cornflowerblue;
+}
+
+.p1
+{
+    color: blue;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 20px;
+}
+
+.p2
+{
+    color: green;
+    font-size: 30px;
+    font-family: 'Times New Roman', Times, serif;
+}

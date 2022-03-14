@@ -42,19 +42,19 @@
                 include 'logout.php';
                 break;
             case 'listaproprietari':
-                include 'listaproprietari.php';
+                include 'lista/listaproprietari.php';
                 break;
             case 'modificaproprietari':
                 include 'modificaproprietari.php';
                 break;
             case 'listazoneetipologie':
-                include 'listazoneetipologie.php';
+                include 'lista/listazoneetipologie.php';
                 break;
             case 'modificazoneetipoogie':
                 include 'modificazoneetipoogie.php';
                 break;
             case 'listaimmobili':
-                include 'listaimmobili.php';
+                include 'lista/listaimmobili.php';
                 break;
             case 'modificaimmobili':
                 include 'modificaimmobili.php';
