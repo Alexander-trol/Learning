@@ -45,19 +45,28 @@
                 include 'lista/listaproprietari.php';
                 break;
             case 'modificaproprietari':
-                include 'modificaproprietari.php';
+                include 'modifica/modificaproprietari.php';
                 break;
             case 'listazoneetipologie':
                 include 'lista/listazoneetipologie.php';
                 break;
             case 'modificazoneetipoogie':
-                include 'modificazoneetipoogie.php';
+                include 'modifica/modificazoneetipologie.php';
                 break;
             case 'listaimmobili':
                 include 'lista/listaimmobili.php';
                 break;
             case 'modificaimmobili':
-                include 'modificaimmobili.php';
+                include 'modifica/modificaimmobili.php';
+                break;
+            case 'aggiungiproprietario':
+                include 'aggiunta/aggiungiproprietario.php';
+                break;
+            case 'aggiungiimmobile':
+                include 'aggiunta/aggiungiimmobile.php';
+                break;
+            case 'aggiungizoneetipologia':
+                include 'aggiunta/aggiungizoneetipologia.php';
                 break;
         }
     ?>

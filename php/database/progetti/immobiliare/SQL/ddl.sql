@@ -9,19 +9,19 @@ CREATE TABLE proprietari(
 )
 
 CREATE TABLE intestazioni(
-    Id integer unsigned AUTO_INCREMENT,
+    id integer unsigned AUTO_INCREMENT,
     data date not null,
     versamento integer not null,
-    IdProp varchar(16),
-    IdImmob integer unsigned,
+    idProp varchar(16),
+    idImmob integer unsigned,
 
-    primary key(Id),
-    foreign key(IdProp) references proprietari(CF),
-    foreign key(IdImmob) references immobili(Id)
+    primary key(id),
+    foreign key(idProp) references proprietari(CF),
+    foreign key(idImmob) references immobili(id)
 )
 
 CREATE TABLE immobili(
-    Id integer unsigned AUTO_INCREMENT,
+    id integer unsigned AUTO_INCREMENT,
     nome varchar(30) not null,
     via varchar(30) not null,
     civico varchar(30) not null,
@@ -31,21 +31,21 @@ CREATE TABLE immobili(
     IdTipo integer unsigned,
     IdZona integer unsigned,
 
-    primary key(Id),
-    foreign key(IdTipo) references tipoImm(Id),
-    foreign key(IdZona) references tipoZona(Id)
+    primary key(id),
+    foreign key(idtipo) references tipoimm(id),
+    foreign key(idzona) references tipozona(id)
 )
 
 CREATE TABLE tipoZona(
-    Id integer unsigned AUTO_INCREMENT,
+    id integer unsigned AUTO_INCREMENT,
     zona varchar(30),
 
-    primary key(Id)
+    primary key(id)
 )
 
 CREATE TABLE tipoImm(
-    Id integer unsigned AUTO_INCREMENT,
+    id integer unsigned AUTO_INCREMENT,
     tipo varchar(30),
 
-    primary key(Id)
+    primary key(id)
 )

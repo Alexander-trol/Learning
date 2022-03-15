@@ -8,7 +8,7 @@ include 'components/functions.php';
     <body>
         <div class="container ">
             <nav class="navbar navbar-expand-lg navbar-light bg-light p-3">
-            <a href="" class="navbar-brand">Immobiliare</a>
+            <a href="index.php?scelta=immobiliare" class="navbar-brand">Immobiliare</a>
 
                 <div class="collapse navbar-collapse">
                     <ul class="navbar-nav mr-auto">
@@ -103,8 +103,8 @@ include 'components/functions.php';
                     $output = '
                         <table class="table table-striped">
                             <tr>
-                                <th scope="col">Zona</th>
-                                <th scope="col">Tipo</th>
+                                <th scope="col">Nome</th>
+                                <th scope="col">Via</th>
                             </tr>';
                 
                     foreach ($rs as $row) {
