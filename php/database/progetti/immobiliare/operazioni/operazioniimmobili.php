@@ -68,7 +68,7 @@ include 'components/functions.php';
                                 <td>'.$row['via'].'</td>
                                 <td>
                                     <a href="index.php/?scelta=eliminaimmobile&id='.$row['id'].'">Elimina</a> &#47;
-                                    <a href="">Modifica</a>
+                                    <a href="index.php/?scelta=modificaimmobile&id='.$row['id'].'">Modifica</a>
                                 </td>
                                 <td></td>
                             </tr>    

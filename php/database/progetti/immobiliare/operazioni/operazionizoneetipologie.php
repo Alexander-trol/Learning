@@ -68,7 +68,7 @@ include 'components/functions.php';
                                         <td>'.$row['zona'].'</td>
                                         <td>
                                             <a href="index.php/?scelta=eliminazona&id='.$row['id'].'">Elimina</a> &#47;
-                                            <a href="index.php/?scelta=eliminazona&id='.$row['id'].'">Modifica</a>
+                                            <a href="index.php/?scelta=modificazona&id='.$row['id'].'">Modifica</a>
                                         </td>
                                         <td></td>
                                     </tr>    
@@ -101,7 +101,7 @@ include 'components/functions.php';
                                         <td>'.$row['tipo'].'</td>
                                         <td>
                                             <a href="index.php/?scelta=eliminatipologia&id='.$row['id'].'">Elimina</a> &#47;
-                                            <a href="">Modifica</a>
+                                            <a href="index.php/?scelta=modificatipologia&id='.$row['id'].'">Modifica</a>
                                         </td>
                                         <td></td>
                                     </tr>    

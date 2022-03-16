@@ -79,19 +79,51 @@
                 $telefono = $_REQUEST['telefono'];
                 $email = $_REQUEST['email'];
                 
-                $sql = "UPDATE proprietari 
-                    SET CF=?, nome=?, cognome=?, telefono=?, email=?";
+                $sql = "UPDATE proprietari SET nome=?, cognome=?, telefono=?, email=? WHERE CF=?";
                 $result = $conn->prepare($sql);
-                $result->execute([$CF, $nome, $cognome, $telefono, $email]);
+                $result->execute([$nome, $cognome, $telefono, $email, $CF]);
+                header('location: index.php/?scelta=operazioniproprietari');
                 break;
             case 'modificaimmobile':
-                # code...
+                include 'modifica/modificaimmobile.php';
+                break;
+            case 'updateimmobile':
+                $id = $_REQUEST['id'];
+                $nome = $_REQUEST['nome'];
+                $via = $_REQUEST['via'];
+                $civico = $_REQUEST['civico'];
+                $metratura = $_REQUEST['metratura'];
+                $piano = $_REQUEST['piano'];
+                $nLocali = $_REQUEST['nLocali'];
+                
+                $sql = "UPDATE immobili SET nome=?, via=?, civico=?, metratura=?, piano=?, nLocali=? WHERE id=?";
+                $result = $conn->prepare($sql);
+                $result->execute([$nome, $via, $civico, $metratura, $piano, $nLocali, $id]);
+                header('location: index.php/?scelta=operazioniimmobili');
                 break;
             case 'modificazona':
-                # code...
+                include 'modifica/modificazona.php';
+                break;
+            case 'updatezona':
+                $id = $_REQUEST['id'];
+                $zona = $_REQUEST['zona'];
+                
+                $sql = "UPDATE tipozona SET zona=? WHERE id=?";
+                $result = $conn->prepare($sql);
+                $result->execute([$zona, $id]);
+                header('location: index.php/?scelta=operazionizoneetipoogie');
                 break;
             case 'modificatipologia':
-                # code...
+                include 'modifica/modificatipologia.php';
+                break;
+            case 'updatetipologia':
+                $id = $_REQUEST['id'];
+                $tipo = $_REQUEST['tipo'];
+                
+                $sql = "UPDATE tipoimm SET tipo=? WHERE id=?";
+                $result = $conn->prepare($sql);
+                $result->execute([$tipo, $id]);
+                header('location: index.php/?scelta=operazionizoneetipoogie');
                 break;
             case 'eliminaproprietario':
                 $CF = $_REQUEST['CF'];
@@ -104,18 +136,21 @@
                 $sql = "DELETE FROM immobili WHERE id=?";
                 $result = $conn->prepare($sql);
                 $result->execute([$id]);
+                header('location: index.php/?scelta=operazioniimmobili');
                 break;
             case 'eliminazona':
                 $id = $_REQUEST['id'];
                 $sql = "DELETE FROM tipozona WHERE id=?";
                 $result = $conn->prepare($sql);
                 $result->execute([$id]);
+                header('location: index.php/?scelta=operazionizoneetipoogie');
                 break;
             case 'eliminatipologia':
                 $id = $_REQUEST['id'];
                 $sql = "DELETE FROM tipoimm WHERE id=?";
                 $result = $conn->prepare($sql);
                 $result->execute([$id]);
+                header('location: index.php/?scelta=operazionizoneetipoogie');
                 break;
         }
     ?>
