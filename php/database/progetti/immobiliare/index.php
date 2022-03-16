@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +10,7 @@
 </head>
 <body>
     <?php
-        session_start();
+        include 'components/functions.php';
         $scelta = isset($_REQUEST['scelta']) ? $_REQUEST['scelta'] : null;
 
         switch($scelta){
@@ -44,20 +45,20 @@
             case 'listaproprietari':
                 include 'lista/listaproprietari.php';
                 break;
-            case 'modificaproprietari':
-                include 'modifica/modificaproprietari.php';
+            case 'listaimmobili':
+                include 'lista/listaimmobili.php';
                 break;
             case 'listazoneetipologie':
                 include 'lista/listazoneetipologie.php';
                 break;
-            case 'modificazoneetipoogie':
-                include 'modifica/modificazoneetipologie.php';
+            case 'operazioniproprietari':
+                include 'operazioni/operazioniproprietari.php';
                 break;
-            case 'listaimmobili':
-                include 'lista/listaimmobili.php';
+            case 'operazionizoneetipoogie':
+                include 'operazioni/operazionizoneetipologie.php';
                 break;
-            case 'modificaimmobili':
-                include 'modifica/modificaimmobili.php';
+            case 'operazioniimmobili':
+                include 'operazioni/operazioniimmobili.php';
                 break;
             case 'aggiungiproprietario':
                 include 'aggiunta/aggiungiproprietario.php';
@@ -67,6 +68,54 @@
                 break;
             case 'aggiungizoneetipologia':
                 include 'aggiunta/aggiungizoneetipologia.php';
+                break;
+            case 'modificaproprietario':
+                include 'modifica/modificaproprietario.php';
+                break;
+            case 'updateproprietario':
+                $CF = $_REQUEST['CF'];
+                $nome = $_REQUEST['nome'];
+                $cognome = $_REQUEST['cognome'];
+                $telefono = $_REQUEST['telefono'];
+                $email = $_REQUEST['email'];
+                
+                $sql = "UPDATE proprietari 
+                    SET CF=?, nome=?, cognome=?, telefono=?, email=?";
+                $result = $conn->prepare($sql);
+                $result->execute([$CF, $nome, $cognome, $telefono, $email]);
+                break;
+            case 'modificaimmobile':
+                # code...
+                break;
+            case 'modificazona':
+                # code...
+                break;
+            case 'modificatipologia':
+                # code...
+                break;
+            case 'eliminaproprietario':
+                $CF = $_REQUEST['CF'];
+                $sql = "DELETE FROM proprietari WHERE CF=?";
+                $result = $conn->prepare($sql);
+                $result->execute([$CF]);
+                break;
+            case 'eliminaimmobile':
+                $id = $_REQUEST['id'];
+                $sql = "DELETE FROM immobili WHERE id=?";
+                $result = $conn->prepare($sql);
+                $result->execute([$id]);
+                break;
+            case 'eliminazona':
+                $id = $_REQUEST['id'];
+                $sql = "DELETE FROM tipozona WHERE id=?";
+                $result = $conn->prepare($sql);
+                $result->execute([$id]);
+                break;
+            case 'eliminatipologia':
+                $id = $_REQUEST['id'];
+                $sql = "DELETE FROM tipoimm WHERE id=?";
+                $result = $conn->prepare($sql);
+                $result->execute([$id]);
                 break;
         }
     ?>

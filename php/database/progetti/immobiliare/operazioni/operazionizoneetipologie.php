@@ -45,9 +45,9 @@ include 'components/functions.php';
             </nav>
             <div class="container" style="padding-top: 20px;">
                 <div class="row">
-                    <div class="col-4">
+                    <div class="col-6">
                         <?php
-                            $sql = "SELECT nome, cognome FROM proprietari";
+                            $sql = "SELECT * FROM tipozona";
                             $result = $conn->prepare($sql);
                             $result->execute();
                             $rs = $result->fetchAll();
@@ -55,29 +55,32 @@ include 'components/functions.php';
                             $output = '
                                 <table class="table table-striped">
                                     <tr>
-                                        <th>Nome</th>
-                                        <th>Cognome</th>
+                                        <th>#</th>
+                                        <th>Zona</th>
+                                        <th>Operazioni</th>
+                                        <th><a href="./?scelta=aggiungizoneetipologia">Aggiungi</a></th>
                                     </tr>';
                         
                             foreach ($rs as $row) {
                                 $output .= '
                                     <tr>
-                                        <td>'.$row['nome'].'</td>
-                                        <td>'.$row['cognome'].'</td>
+                                        <td>'.$row['id'].'</td>
+                                        <td>'.$row['zona'].'</td>
+                                        <td>
+                                            <a href="index.php/?scelta=eliminazona&id='.$row['id'].'">Elimina</a> &#47;
+                                            <a href="index.php/?scelta=eliminazona&id='.$row['id'].'">Modifica</a>
+                                        </td>
+                                        <td></td>
                                     </tr>    
                                     ';
-                                    
                             }
-                            
                             $output .= '</table>';
                             echo $output;
                         ?>
                     </div>
-                    <div class="col-4">
+                    <div class="col-6">
                         <?php
-                            $sql = "SELECT z.zona, t.tipo 
-                            FROM tipoimm AS t, tipozona AS z
-                            WHERE z.id=t.id";
+                            $sql = "SELECT * FROM tipoimm";
                             $result = $conn->prepare($sql);
                             $result->execute();
                             $rs = $result->fetchAll();
@@ -85,41 +88,22 @@ include 'components/functions.php';
                             $output = '
                                 <table class="table table-striped">
                                     <tr>
-                                        <th scope="col">Zona</th>
-                                        <th scope="col">Tipo</th>
+                                        <th>#</th>
+                                        <th>Tipologia</th>
+                                        <th>Operazioni</th>
+                                        <th><a href="./?scelta=aggiungizoneetipologia">Aggiungi</a></th>
                                     </tr>';
                         
                             foreach ($rs as $row) {
                                 $output .= '
                                     <tr>
-                                        <td>'.$row['zona'].'</td>
+                                        <td>'.$row['id'].'</td>
                                         <td>'.$row['tipo'].'</td>
-                                    </tr>    
-                                    ';
-                            }
-                            $output .= '</table>';
-                            echo $output;
-                        ?>    
-                    </div>
-                    <div class="col-4">
-                        <?php
-                            $sql = "SELECT nome, via FROM immobili";
-                            $result = $conn->prepare($sql);
-                            $result->execute();
-                            $rs= $result->fetchAll();
-
-                            $output = '
-                                <table class="table table-striped">
-                                    <tr>
-                                        <th scope="col">Nome</th>
-                                        <th scope="col">Via</th>
-                                    </tr>';
-                        
-                            foreach ($rs as $row) {
-                                $output .= '
-                                    <tr>
-                                        <td>'.$row['nome'].'</td>
-                                        <td>'.$row['via'].'</td>
+                                        <td>
+                                            <a href="index.php/?scelta=eliminatipologia&id='.$row['id'].'">Elimina</a> &#47;
+                                            <a href="">Modifica</a>
+                                        </td>
+                                        <td></td>
                                     </tr>    
                                     ';
                             }

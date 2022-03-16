@@ -17,7 +17,7 @@ include 'components/functions.php';
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="index.php?scelta=listaproprietari">Lista proprietari</a></li>
-                                <li><a class="dropdown-item" href="index.php?scelta=modificaproprietari">Modifica proprietari</a></li>
+                                <li><a class="dropdown-item" href="index.php?scelta=operazioniproprietari">Operazioni proprietari</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
@@ -26,7 +26,7 @@ include 'components/functions.php';
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="index.php?scelta=listazoneetipologie">Lista Zone e Tipologie</a></li>
-                                <li><a class="dropdown-item" href="index.php?scelta=modificazoneetipoogie">Modifica Zone e Tipologie</a></li>
+                                <li><a class="dropdown-item" href="index.php?scelta=operazionizoneetipoogie">Operazioni Zone e Tipologie</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
@@ -35,7 +35,7 @@ include 'components/functions.php';
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="index.php?scelta=listaimmobili">Lista Immobili</a></li>
-                                <li><a class="dropdown-item" href="index.php?scelta=modificaimmobili">Modifica Immobili</a></li>
+                                <li><a class="dropdown-item" href="index.php?scelta=operazioniimmobili">Operazioni Immobili</a></li>
                             </ul>
                         </li>
                     </ul>

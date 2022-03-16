@@ -14,8 +14,4 @@
     $user = "root";
     $pwd = "";
     $conn = new PDO("mysql:host=$host; dbname=$db", $user, $pwd);
-
-    // authentication
-    define("USERNAME", "admin");
-    define("PASSWORD", "admin");
 ?>

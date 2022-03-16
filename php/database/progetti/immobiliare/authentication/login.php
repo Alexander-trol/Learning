@@ -2,7 +2,9 @@
     require 'components/functions.php';
 
     if(isset($_SESSION['loggato'])) header('location:index.php?scelta=immobiliare');
-
+    define("USERNAME", "admin");
+    define("PASSWORD", "admin");
+    
     $username = $_REQUEST['username'];
     $password = $_REQUEST['password'];
     

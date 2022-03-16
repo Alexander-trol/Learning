@@ -18,7 +18,7 @@ include 'components/functions.php';
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="index.php?scelta=listaproprietari">Lista proprietari</a></li>
-                                <li><a class="dropdown-item" href="index.php?scelta=modificaproprietari">Modifica proprietari</a></li>
+                                <li><a class="dropdown-item" href="index.php?scelta=operazioniproprietari">Operazioni proprietari</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
@@ -27,7 +27,7 @@ include 'components/functions.php';
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="index.php?scelta=listazoneetipologie">Lista Zone e Tipologie</a></li>
-                                <li><a class="dropdown-item" href="index.php?scelta=modificazoneetipoogie">Modifica Zone e Tipologie</a></li>
+                                <li><a class="dropdown-item" href="index.php?scelta=operazionizoneetipoogie">Operazioni Zone e Tipologie</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
@@ -36,7 +36,7 @@ include 'components/functions.php';
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="index.php?scelta=listaimmobili">Lista Immobili</a></li>
-                                <li><a class="dropdown-item" href="index.php?scelta=modificaimmobili">Modifica Immobili</a></li>
+                                <li><a class="dropdown-item" href="index.php?scelta=operazioniimmobili">Operazioni Immobili</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -45,7 +45,7 @@ include 'components/functions.php';
             </nav>
             <div class="table-responsive">
                 <?php
-                    $sql = "SELECT * FROM tipozona";
+                    $sql = "SELECT * FROM immobili";
                     $result = $conn->prepare($sql);
                     $result->execute();
                     $rs = $result->fetchAll();
@@ -54,18 +54,20 @@ include 'components/functions.php';
                         <table class="table table-striped">
                             <tr>
                                 <th>#</th>
-                                <th>Zona</th>
+                                <th>Nome</th>
+                                <th>Via</th>
                                 <th>Operazioni</th>
-                                <th><a href="./?scelta=aggiungizoneetipologia">Aggiungi</a></th>
+                                <th><a href="./?scelta=aggiungiimmobile">Aggiungi</a></th>
                             </tr>';
                 
                     foreach ($rs as $row) {
                         $output .= '
                             <tr>
                                 <td>'.$row['id'].'</td>
-                                <td>'.$row['zona'].'</td>
+                                <td>'.$row['nome'].'</td>
+                                <td>'.$row['via'].'</td>
                                 <td>
-                                    <a href="">Elimina</a> &#47;
+                                    <a href="index.php/?scelta=eliminaimmobile&id='.$row['id'].'">Elimina</a> &#47;
                                     <a href="">Modifica</a>
                                 </td>
                                 <td></td>
