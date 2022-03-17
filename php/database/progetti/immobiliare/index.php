@@ -130,6 +130,7 @@
                 $sql = "DELETE FROM proprietari WHERE CF=?";
                 $result = $conn->prepare($sql);
                 $result->execute([$CF]);
+                header('location: index.php/?scelta=operazioniproprietari');
                 break;
             case 'eliminaimmobile':
                 $id = $_REQUEST['id'];
@@ -151,6 +152,15 @@
                 $result = $conn->prepare($sql);
                 $result->execute([$id]);
                 header('location: index.php/?scelta=operazionizoneetipoogie');
+                break;
+            case 'acquisto_vendita':
+                include 'acquisto_vendita.php';
+                break;
+            case 'acquisto':
+                include 'acquistoovendita/acquisto.php';
+                break;
+            case 'visualizzapdf':
+                include 'fpdf/pdf.php';
                 break;
         }
     ?>

@@ -32,8 +32,8 @@ CREATE TABLE immobili(
     IdZona integer unsigned,
 
     primary key(id),
-    foreign key(idtipo) references tipoimm(id),
-    foreign key(idzona) references tipozona(id)
+    foreign key(IdTipo) references tipoimm(id),
+    foreign key(IdZona) references tipozona(id)
 )
 
 CREATE TABLE tipoZona(
