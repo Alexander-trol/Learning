@@ -156,8 +156,18 @@
             case 'acquisto_vendita':
                 include 'acquisto_vendita.php';
                 break;
-            case 'acquisto':
+            case 'acquistaimmobile':
                 include 'acquistoovendita/acquisto.php';
+                break;
+            case 'vendiimmobile':
+                include 'acquistoovendita/vendita.php';
+                break;
+            case 'eliminaintestazione':
+                $idProp = $_REQUEST['idProp'];
+                $sql = "DELETE FROM intestazioni WHERE id=?";
+                $result = $conn->prepare($sql);
+                $result->execute([$idProp]);
+                header('location: index.php/?scelta=acquisto_vendita');
                 break;
             case 'visualizzapdf':
                 include 'fpdf/pdf.php';

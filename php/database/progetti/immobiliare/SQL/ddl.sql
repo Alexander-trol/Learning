@@ -10,7 +10,7 @@ CREATE TABLE proprietari(
 
 CREATE TABLE intestazioni(
     id integer unsigned AUTO_INCREMENT,
-    data date not null,
+    dataacquisto date not null,
     versamento integer not null,
     idProp varchar(16),
     idImmob integer unsigned,

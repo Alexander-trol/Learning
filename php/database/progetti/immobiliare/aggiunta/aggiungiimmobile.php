@@ -1,4 +1,7 @@
 <?php
+
+use LDAP\Result;
+
 include 'components/functions.php';
 
 
@@ -68,78 +71,83 @@ if (isset($_POST["Invia"])) {
 ?>
 
 <html>
+    <head></head>
+    <body>
+        
+    
     <div class="container">
         <?php
             include 'navbar.php';
         ?>
-        <form class="row g-3" method="POST">
-            <div class="col-md-6">
-                <label for="inputNome4" class="form-label">Nome</label>
-                <input type="text" name="nome" class="form-control" id="nome" placeholder="Nome" required>
-            </div>
-            <div class="col-md-3">
-                <label for="inputVia4" class="form-label">Via</label>
-                <input type="text" name="via" class="form-control" id="via" placeholder="Via" required>
-            </div>
-            <div class="col-md-3">
-                <label for="Civico" class="form-label">Numero Civico</label>
-                <input type="text" name="civico" class="form-control" id="civico" placeholder="Numero Civico" required>
-            </div>
-            <div class="col-md-6">
-                <label for="Metratura" class="form-label">Metratura</label>
-                <input type="text" name="metratura" class="form-control" id="metratura" placeholder="Metratura">
-            </div>
-            <div class="col-md-6">
-                <label for="inputPiani" class="form-label">Piani</label>
-                <input type="text" name="piano" class="form-control" id="piano" placeholder="Piani">
-            </div>
-            <div class="col-md-6">
-                <label for="inputLocali" class="form-label">Numero Locali</label>
-                <input type="text" name="nLocali" class="form-control" id="nLocali" placeholder="Numero Locali">
-            </div>
-            <?php
-                $sql = "SELECT zona FROM tipozona";
-                $result = $conn->prepare($sql);
-                $result->execute();
-                $rs = $result->fetchAll();
-            
-                $output = '
-                    <div class="col-md-3">
-                        <p>Zona</p>
-                        ';
-            
-                foreach ($rs as $row) {
-                    $output .= '
-                        <input class="form-check-input" type="radio" name="zona" id="zona">
-                        <label class="form-check-label" for="zona">'.$row['zona'].'</label><br>   
-                        ';
-                }
-                $output .= '</div>';
-                echo $output;
-                
-                $sql = "SELECT tipo FROM tipoimm";
-                $result = $conn->prepare($sql);
-                $result->execute();
-                $rs = $result->fetchAll();
-            
-                $output = '
-                    <div class="col-md-3">
-                        <p>Tipo immobile</p>
-                        ';
-            
-                foreach ($rs as $row) {
-                    $output .= '
-                        <input class="form-check-input" type="radio" name="tipo" id="tipo">
-                        <label class="form-check-label" for="zona">'.$row['tipo'].'</label><br>   
-                        ';
-                }
-                $output .= '</div>';
-                echo $output;
-                
-            ?>
-            <div class="col-12">
-                <input type="submit" name="Invia" class="btn btn-primary" value="Invia" />
-            </div>
-        </form>
+        <?php
+            echo ("                
+                <form class=\"row g-3\" method=\"POST\">
+                    <div class=\"col-md-6\">
+                        <label for=\"inputNome4\" class=\"form-label\">Nome</label>
+                        <input type=\"text\" name=\"nome\" class=\"form-control\" id=\"nome\" placeholder=\"Nome\" required>
+                    </div>
+                    <div class=\"col-md-3\">
+                        <label for=\"inputVia4\" class=\"form-label\">Via</label>
+                        <input type=\"text\" name=\"via\" class=\"form-control\" id=\"via\" placeholder=\"Via\" required>
+                    </div>
+                    <div class=\"col-md-3\">
+                        <label for=\"Civico\" class=\"form-label\">Numero Civico</label>
+                        <input type=\"text\" name=\"civico\" class=\"form-control\" id=\"civico\" placeholder=\"Numero Civico\" required>
+                    </div>
+                    <div class=\"col-md-6\">
+                        <label for=\"Metratura\" class=\"form-label\">Metratura</label>
+                        <input type=\"text\" name=\"metratura\" class=\"form-control\" id=\"metratura\" placeholder=\"Metratura\">
+                    </div>
+                    <div class=\"col-md-6\">
+                        <label for=\"inputPiani\" class=\"form-label\">Piani</label>
+                        <input type=\"text\" name=\"piano\" class=\"form-control\" id=\"piano\" placeholder=\"Piani\">
+                    </div>
+                    <div class=\"col-md-6\">
+                        <label for=\"inputLocali\" class=\"form-label\">Numero Locali</label>
+                        <input type=\"text\" name=\"nLocali\" class=\"form-control\" id=\"nLocali\" placeholder=\"Numero Locali\">
+                    </div>
+                    ");
+
+
+            echo("<div class=\"col\">
+                    <div class=\"mb-3\">
+                    <label for=\"inZona\" class=\"form-label\">Zona:</label>
+                    <select class=\"form-select\" name=\"zona\" id=\"zona\" aria-label=\"Default select example\">");
+
+                    $sql = "SELECT * FROM tipozona";
+                    $result = $conn->prepare($sql);
+                    $result->execute();
+                    $rs=$result->fetchAll();
+                    foreach ($rs as $row) {
+                        echo("<option value=\"".$row['id']."\">".$row['zona']."</option>");
+                    }
+
+                    echo("</select>
+                    </div>
+                </div>
+                ");
+            echo("<div class=\"col\">
+                    <div class=\"mb-3\">
+                    <label for=\"inTipo\" class=\"form-label\">Tipologia:</label>
+                    <select class=\"form-select\" name=\"tipo\" id=\"tipo\" aria-label=\"Default select example\">");
+
+                    $sql = "SELECT * FROM tipoimm";
+                    $result = $conn->prepare($sql);
+                    $result->execute();
+                    $rs=$result->fetchAll();
+                    foreach ($rs as $row) {
+                        echo("<option value=\"".$row['id']."\">".$row['tipo']."</option>");
+                    }
+
+                        echo("</select>
+                    </div>
+                </div>
+                <div class=\"col-6\">
+                    <input type=\"submit\" name=\"Invia\" class=\"btn btn-primary\" value=\"Invia\" />
+                </div>
+            </form>
+            ");
+        ?>
     </div>
+    </body>
 </html>

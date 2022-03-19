@@ -24,7 +24,7 @@ include 'components/functions.php';
                                 <th>Nome</th>
                                 <th>Via</th>
                                 <th>Operazioni</th>
-                                <th><a href="./?scelta=aggiungiimmobile">Aggiungi</a></th>
+                                <th><a href="index.php/?scelta=aggiungiimmobile">Aggiungi</a></th>
                             </tr>';
                 
                     foreach ($rs as $row) {
