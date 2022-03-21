@@ -1,25 +1,10 @@
 <?php
 include 'components/functions.php';
-
 if (isset($_POST["Invia"])) {
-    $dataacquisto = trim($_POST["dataacquisto"]);
-    $versamento = trim($_POST["versamento"]);
-    $CF = trim($_POST['CF']);
-    $nome = trim($_POST['nome']);
-
-    $data = array(
-        ':dataacquisto' => $dataacquisto,
-        ':versamento' => $versamento,
-        ':CF' => $CF,
-        ':nome' => $nome
-    );
-
-    $sql = "INSERT INTO intestazioni(dataacquisto, versamento, idProp, idImmob)
-    VALUES ('$dataacquisto', '$versamento', '$CF', '$nome')";
+    $idProp = $_REQUEST['idProp'];
+    $sql = "DELETE FROM intestazioni WHERE idProp = ?";
     $result = $conn->prepare($sql);
-    if ($result->execute($data)) {
-        $messaggio = "<label>Aggiunta Immobile avvenuto con successo!</label>";
-    }
+    $result->execute([$idProp]);
 }
 ?>
 <html>
@@ -42,28 +27,14 @@ if (isset($_POST["Invia"])) {
                 $result->execute();
                 $rs=$result->fetchAll();
                 foreach ($rs as $row) {
-                    $controllo_sql = "SELECT idProp FROM intestazioni WHERE idProp = :idProp";
-                    $result_control = $conn->prepare($controllo_sql);
-                    $controllo_dati = array(
-                        ':idProp' => $idProp
-                    );
-                    if ($result_control->execute($controllo_dati)) {
-                        if ($result_control->rowCount() > 5) {
-                            echo 'sus';
-                        }
-                        else{
-                            echo("<option value=\"".$row['idProp']."\">".$row['idProp']."</option>");
-                        }
-                    }
+                    echo("<option value=\"".$row['idProp']."\">".$row['idProp']."</option>");
                 }
-
-                    echo("</select>
+                echo("</select>
                         </div>
                     </div>
-                        <div class=\"col-12\">
-                            <input type=\"hidden\" name=\"scelta\" value=\"eliminaintestazione\">
-                             <input type=\"submit\" name=\"Invia\" class=\"btn btn-primary\" value=\"Invia\" />
-                        </div>
+                    <div class=\"col-12\">
+                            <input type=\"submit\" name=\"Invia\" class=\"btn btn-primary\" value=\"Invia\" />
+                    </div>
                 </form>
             ");
         ?>
