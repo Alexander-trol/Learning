@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>EC 5I</title> <!--   -->
+        <meta charset='UTF-8'/>
+        <link rel='stylesheet' href='style.css'>
+        <script>
+            const sWidth = 2000, sHeight = 500, radius = 30; // h 1000
+            const nPeople = 3, delay = 100;
+            const speed = radius / 3, turnAngle = 1; // (radiants)
+            const ticksToHealth = 200, initialSickness = 3;
+        </script>
+        <script src='svg.js'></script>
+        <script src='People.js'></script>
+    </head>
+
+    <body id='body'>
+        <button id='ss' type='button'></button>
+
+        <svg xmlns='http://www.w3.org/2000/svg' id='svg'/>
+
+        <script>
+            document.documentElement.style.setProperty('--text-font-size', `${radius/23}em`);
+            // svg container
+            const svg = document.getElementById('svg');
+            svg.setAttribute('viewBox', `0 0 ${sWidth} ${sHeight}`);
+
+
+            // start/stop the clock ticking
+            const button = document.getElementById('ss');
+            const start = '▶', stop = '■';
+            button.textContent = start;
+            let interval = undefined;
+            button.onclick = svg.onclick = () => {
+                if (interval === undefined) {
+                    button.textContent = stop;
+                    interval = setInterval(clockTick, delay);
+                } else {
+                    clearInterval(interval);
+                    interval = undefined;
+                    button.textContent = start;
+                }
+            };
+
+            // the population
+            const names = [ 'gee', 'mee', 'cee' ];
+            //const people = new People(svg, nPeople, names);
+            const people = new QuintaI(svg);
+
+            // let the time flow...
+            const clockTick = function () {
+                people.clockTick();
+            }
+        </script>
+    </body>
+</html>
