@@ -1,37 +1,53 @@
 <?php
     //gmdate("Y-m-d\TH:i:s\Z", $timestamp);
-    require_once('.gitignore/config.php');
+    require_once('config.php');
     require_once('json-handler.php');
     require_once('bot-api.php');
 
-    $website = "https://api.telegram.org/bot$token/";
-
-    $json = file_get_contents('php://input');
-    $update = json_decode($json, true);
-
-    $chatId = $update['message']['chat']['id'];    //id del gruppo o della chat
-    $message = $update['message']['text'];         //testo del messaggio
+    $ngrok = "https://d7a5-87-10-25-189.eu.ngrok.io/json-handler.php"; //ngrok url da cambaire ad ogni url
+    
+    #isset chatId e message
+    if(isset($_POST['chatId']) && isset($_POST['message'])){
+        $chatId = $_POST['chatId'];
+        $message = $_POST['message'];
+    }
+    
 
     try{
-        $bot = new TelegramBot($token); 
+
+        $bot = new TelegramBot($token);             # crea un oggetto bot
+        $me = $bot->getMe();                        # Otteniamo i dati del bot (nome, id, etc.)
+        $updates = $bot->getUpdates();              # salvo la lista degli update in una variabile
+        $setWebhook = $bot->setWebhook($ngrok);     # setto il webhook
+        $deleteWebhook = $bot->deleteWebhook();     # rimuovo il webhook
+
+        var_dump($me);
+        var_dump($updates);
+        /* var_dump($deleteWebhook); */
+        var_dump($setWebhook);                      # stampo il risultato dell'invio del webhook
+
         
-        var_dump($bot->getMe());
-
-        //Il link è da cambiare ogni volta che si aggiorna il sito o lo si cambia
-        var_dump($bot->setWebhook("https://90d9-87-10-25-189.eu.ngrok.io/json-handler.php"));
-
-        //$bot->deleteWebhook();
     }
     catch(ErrorException $e){
         echo $e->getMessage();
     }
 
-    switch ($message) {
-        case 'ciao':
-            $bot->ciao($chatId);
         
+    $chatId = $request['message']['chat']['id'];    //id del gruppo o della chat
+    $message = $request['message']['text'];         //testo del messaggio
+
+    switch($message){
+        case "ciao":
+            $bot->start($chatId);
+            break;
+        case "/help":
+            $bot->sendMessage($chatId, $message);
+            $bot->sendMessage($chatId, $message);
+            break;
         default:
+            $bot->sendMessage($chatId, $message);
             $bot->sendMessage($chatId, $message);
             break;
     }
+
 ?>

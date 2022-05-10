@@ -1,10 +1,13 @@
 <?php
-  require_once('fetch-api.php');
-  require_once('index.php');
-
+    require_once('fetch-api.php');
+    require_once('config.php');
+    require_once('index.php');
+  
     class TelegramBot {
 
         protected $botId;
+
+        
 
         function __construct($botId){
         $this->botId = $botId;
@@ -43,7 +46,7 @@
         }
 
         //Funzione ciao(), usata per l'invio di messaggi di benvenuto
-        public function ciao($chatId){
+        public function start($chatId){
             $message = "Ciao, sono il bot di CipGram.\n";
             $message .= "Per maggiori informazioni scrivi /help";
             $this->sendMessage($chatId, $message);
