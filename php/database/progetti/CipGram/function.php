@@ -24,12 +24,12 @@
 
     #funzione di invio video
     function sendVideo($chatId, $video){
-        global $website;
+        global $website;                                                            # uso la variabile globale $website
         $url = $website."/sendVideo";
         $data = array(
             "chat_id"=>$chatId,
             "video"=>$video,
-            "caption"=>"Video di presentazione della nostra agenzia"
+            "caption"=>"Video di presentazione della nostra agenzia"                # descrizione del video
         );
         $options = array(
             'http' => array(
@@ -62,6 +62,20 @@
         $context = stream_context_create($options);
         $result = file_get_contents($url, false, $context);
         return $result;
+    }
+
+    #funzione della tastiera che genera tanti bottoni in base a quanti immobili sono presenti nella tabella immobili
+    function generateKeyboard($immobili){
+        $keyboard = array();
+        foreach($immobili as $immobile){             # ciclo sugli immobili
+            $keyboard[] = array($immobile['nome']);  # creo un array con il campo della tabella nome di ogni immobile
+        }
+        $replyMarkup = array(
+            'keyboard' => $keyboard,                 # imposto la tastiera
+            'resize_keyboard' => true,               # imposto il parametro resize_keyboard a true per far si che la tastiera si ridimensioni in base a quanti bottoni ci sono
+            'one_time_keyboard' => true              # se true il tasto viene rimosso dopo che è stato premuto
+        );
+        return json_encode($replyMarkup);            # restituisco il json della tastiera
     }
 
     # settare il webhook con la funzione setWebhook che funziona solo una volta
@@ -99,4 +113,13 @@
         $result = file_get_contents($url, false, $context);
         return $result;
     }
+
+    # funzione vendita immobile tramite query SQL DELETE
+    function venditaImmobile($immobile){
+        $sql = "DELETE FROM immobili, intestazioni WHERE immobili.nome = intestazioni.idImmob";
+        $result = $GLOBALS['conn']->prepare($sql);
+        $result->execute([$immobile]);
+        return $result;
+    }
+
 ?>
