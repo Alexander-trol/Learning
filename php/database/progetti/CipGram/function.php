@@ -10,7 +10,7 @@
             'text' => $text,                # parametro text
             'reply_markup' => $replyMarkup  # parametro reply_markup
         ];
-        $options = [ 
+        $options = [   
             'http' => [ 
                 'header' => "Content-type: application/x-www-form-urlencoded\r\n",  # uso x-www-form-urlencoded essendo che devo inviare del testo via POST e non del codice binario
                 'method' => 'POST',                                                 # imposto il metodo di invio
@@ -65,7 +65,7 @@
     }
 
     #funzione della tastiera che genera tanti bottoni in base a quanti immobili sono presenti nella tabella immobili
-    function generateKeyboard($immobili){
+    function generateKeyboardImmobili($immobili){
         $keyboard = array();
         foreach($immobili as $immobile){             # ciclo sugli immobili
             $keyboard[] = array($immobile['nome']);  # creo un array con il campo della tabella nome di ogni immobile
@@ -115,10 +115,36 @@
     }
 
     # funzione vendita immobile tramite query SQL DELETE
-    function venditaImmobile($immobile){
-        $sql = "DELETE FROM immobili, intestazioni WHERE immobili.nome = intestazioni.idImmob";
+    function venditaImmobileIntest($immobile){
+        $sql = "DELETE FROM immobili, intestazioni WHERE immobili.id = immobile.$immobile AND intestazioni.idImmob = immobile.id";
         $result = $GLOBALS['conn']->prepare($sql);
         $result->execute([$immobile]);
+        return $result;
+    }
+
+    # funzione per la vendita di un immobile tramite query SQL DELETE
+    function venditaImmobile($immobile){
+        $sql = "DELETE FROM immobili WHERE nome = ?";
+        $result = $GLOBALS['conn']->prepare($sql);
+        $result->execute([$immobile]);
+        return $result;
+    }
+
+    # funzione getUpdates che mostra i risultati del json
+    function getUpdates(){
+        $url = $GLOBALS['website']."/getUpdates";
+        $data = [
+            'offset' => $GLOBALS['last_update']
+        ];
+        $options = [
+            'http' => [
+                'header' => "Content-type: application/x-www-form-urlencoded\r\n",
+                'method' => 'POST',
+                'content' => http_build_query($data)
+            ]
+        ];
+        $context = stream_context_create($options);
+        $result = file_get_contents($url, false, $context);
         return $result;
     }
 
